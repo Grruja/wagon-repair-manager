@@ -1,0 +1,32 @@
+* {
+	-fx-primary-color: #1d1a56;
+	-fx-secondary-color: #383391;
+}
+
+.tab-pane {
+	-fx-tab-min-width: 100px;
+	-fx-tab-min-height: 50px;
+	-fx-tab-max-height: 50px;
+}
+.tab-pane .tab {
+	-fx-background-color: transparent;
+}
+.tab-header-area {
+    -fx-padding: 10 0 10 10;
+}
+.tab-header-area .tab-header-background {
+ 	-fx-background-color: -fx-primary-color;
+}
+.tab-pane .tab:selected {
+	-fx-background-color: -fx-secondary-color;
+}
+.tab .tab-label {
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+	-fx-padding: 0 10 0 10;
+}
+.tab-pane:focused .tab-header-area .headers-region .tab:selected .focus-indicator {
+ 	-fx-border-width: 0;
+	-fx-border-insets: 0 0 0 0;
+	-fx-border-radius: 0;
+}
