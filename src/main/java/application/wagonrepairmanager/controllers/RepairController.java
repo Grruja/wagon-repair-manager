@@ -1,6 +1,7 @@
 package application.wagonrepairmanager.controllers;
 
 import application.wagonrepairmanager.models.RepairModel;
+import application.wagonrepairmanager.validations.RepairValidations;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,28 +38,31 @@ public class RepairController implements Initializable
     @FXML
     private Label repairStatusError;
 
-    private static final String[] REPAIR_STATUS_OPTIONS = {"completed", "in progress"};
+    private RepairValidations validator;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        repairStatusCombo.setItems(FXCollections.observableArrayList(REPAIR_STATUS_OPTIONS));
+        repairStatusCombo.setItems(FXCollections.observableArrayList(RepairModel.REPAIR_STATUS_OPTIONS));
+        validator = new RepairValidations(wagonIdError, problemDetectedError, userIdError, repairDateError, repairStatusError);
     }
 
     @FXML
     private void createRepair()
     {
-        RepairModel.saveRepair(formData());
+        Map<String, Object> formData = formData();
+        if (!validator.validateForm(formData)) return;
+        new RepairModel().create(formData);
     }
 
     private Map<String, Object> formData()
     {
         Map<String, Object> formData = new LinkedHashMap<>();
-        formData.put("wagonId", wagonIdField.getText());
-        formData.put("problemDetected", problemDetectedField.getText());
-        formData.put("userId", userIdField.getText());
-        formData.put("repairDate", repairDatePicker.getValue());
-        formData.put("repairStatus", repairStatusCombo.getValue());
+        formData.put("wagon_id", wagonIdField.getText());
+        formData.put("problem_detected", problemDetectedField.getText());
+        formData.put("repaired_by_user_id", userIdField.getText());
+        formData.put("repair_date", repairDatePicker.getValue());
+        formData.put("repair_status", repairStatusCombo.getValue());
 
         return formData;
     }
