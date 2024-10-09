@@ -12,7 +12,7 @@ public class RepairModel extends Model
         return new String[]{
                 "wagon_id",
                 "problem_detected",
-                "repaired_by",
+                "repaired_by_user_id",
                 "repair_date",
                 "repair_status",
         };

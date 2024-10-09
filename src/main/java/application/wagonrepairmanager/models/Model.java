@@ -15,12 +15,13 @@ abstract public class Model
     public void create(Map<String, Object> data)
     {
         String tableName = getTableName();
-        int numberOfColumns = data.size();
+        String[] columns = getFillable();
+        int numberOfColumns = columns.length;
 
         StringBuilder sql = new StringBuilder("INSERT INTO " + tableName + " (");
 
-        for (String columnName : data.keySet()) {
-            sql.append(columnName).append(", ");
+        for (String column : columns) {
+            sql.append(column).append(", ");
         }
         sql.append("created_at) VALUES (");
 
