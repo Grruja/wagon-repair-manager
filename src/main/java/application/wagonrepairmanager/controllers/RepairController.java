@@ -1,6 +1,7 @@
 package application.wagonrepairmanager.controllers;
 
 import application.wagonrepairmanager.models.RepairModel;
+import application.wagonrepairmanager.utilities.UIUtility;
 import application.wagonrepairmanager.validations.RepairValidations;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -38,6 +39,9 @@ public class RepairController implements Initializable
     @FXML
     private Label repairStatusError;
 
+    @FXML
+    private Label successMessage;
+
     private RepairValidations validator;
 
     @Override
@@ -51,8 +55,11 @@ public class RepairController implements Initializable
     private void createRepair()
     {
         Map<String, Object> formData = formData();
+
         if (!validator.validateForm(formData)) return;
         new RepairModel().create(formData);
+
+        UIUtility.toastMessage(successMessage);
     }
 
     private Map<String, Object> formData()
